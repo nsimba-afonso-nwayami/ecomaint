@@ -79,7 +79,7 @@ export default function HeaderAdmin({ sidebarOpen, setSidebarOpen, title }) {
             <p className="text-xs font-extrabold text-slate-100 leading-none tracking-wide">
               Administrador
             </p>
-            <p className="text-[9px] text-green-700 uppercase font-black tracking-[0.15em] mt-1 bg-green-950/40 py-0.5 px-2 rounded">
+            <p className="text-[9px] text-slate-100 uppercase font-black tracking-[0.15em] mt-1 bg-green-950/40 py-0.5 px-2 rounded">
               EcoMaint
             </p>
           </div>
