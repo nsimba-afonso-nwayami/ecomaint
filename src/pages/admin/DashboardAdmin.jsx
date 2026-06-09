@@ -41,7 +41,7 @@ export default function DashboardAdmin() {
         <section className="space-y-8 animate-fade-in">
           
           {/* SAUDAÇÃO & CABEÇALHO */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 bg-gradient-to-r from-green-900 to-green-800 p-6 rounded-2xl shadow-xl shadow-green-950/10 text-white relative overflow-hidden">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 bg-linear-to-r from-green-900 to-green-800 p-6 rounded-2xl shadow-xl shadow-green-950/10 text-white relative overflow-hidden">
             <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
             <div className="relative z-10">
               <h1 className="text-2xl md:text-3xl font-black tracking-tight">
@@ -133,17 +133,17 @@ export default function DashboardAdmin() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-gradient-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
+                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
                   <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Disponibilidade</p>
                   <h3 className="text-2xl font-black text-green-700 mt-2">97%</h3>
                 </div>
 
-                <div className="bg-gradient-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
+                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
                   <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">MTTR (Reparação)</p>
                   <h3 className="text-2xl font-black text-amber-600 mt-2">3.2h</h3>
                 </div>
 
-                <div className="bg-gradient-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
+                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
                   <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Preventivas</p>
                   <h3 className="text-2xl font-black text-blue-600 mt-2">84%</h3>
                 </div>
@@ -225,7 +225,7 @@ export default function DashboardAdmin() {
                 ].map((item, index) => (
                   <div key={index} className="relative flex items-start justify-between gap-4 text-sm group">
                     {/* Indicador customizado na linha */}
-                    <div className="absolute -left-[25px] top-0.5 bg-white p-0.5 rounded-full">
+                    <div className="absolute -left-6.25 top-0.5 bg-white p-0.5 rounded-full">
                       <div className="w-3 h-3 rounded-full bg-green-700 border-2 border-white shadow-sm group-hover:scale-120 transition-transform" />
                     </div>
 
