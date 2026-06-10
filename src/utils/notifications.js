@@ -1,0 +1,17 @@
+import toast from "react-hot-toast";
+
+export const notifySuccess = (message) => {
+  toast.success(message);
+};
+
+export const notifyError = (message) => {
+  toast.error(message);
+};
+
+export const notifyLoading = (message) => {
+  return toast.loading(message);
+};
+
+export const dismissToast = (toastId) => {
+  toast.dismiss(toastId);
+};
