@@ -2,9 +2,48 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
+import { loginSchema } from "../../validations/authValidation";
+import {
+  notifyError,
+  notifyLoading,
+  dismissToast,
+} from "../../utils/notifications";
+import { showSuccessAlert } from "../../utils/alerts";
 
 export default function Login() {
+  const navigate = useNavigate();
+  
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  })
+
+  const onSubmit = async (data) => {
+    const loadingToast = notifyLoading("A autenticar...");
+
+    try {
+      console.log("DADOS:", data);
+
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      dismissToast(loadingToast);
+
+      await showSuccessAlert(
+        "Login realizado!",
+        "Bem-vindo ao EcoMaint."
+      );
+
+      navigate("/dashboard/admin");
+    } catch (error) {
+      dismissToast(loadingToast);
+
+      notifyError("Não foi possível iniciar sessão.");
+    }
+  };
+
   return (
     <>
       <title>Entrar | EcoMaint</title>
@@ -26,7 +65,7 @@ export default function Login() {
           </div>
 
           {/* Formulário */}
-          <form className="space-y-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Email */}
             <div>
               <label className="block mb-2 text-sm font-bold text-green-900">
@@ -38,10 +77,22 @@ export default function Login() {
 
                 <input
                   type="email"
+                  {...register("email")}
                   placeholder="Digite o seu email"
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-green-900 transition"
+                  className={`w-full pl-12 pr-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 transition
+                  ${
+                    errors.email
+                      ? "border border-red-500 focus:ring-red-500 focus:border-red-500"
+                      : "border border-slate-300 focus:ring-green-900 focus:border-green-900"
+                  }`}
                 />
               </div>
+
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-500 font-medium">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
             {/* Senha */}
@@ -55,10 +106,22 @@ export default function Login() {
 
                 <input
                   type="password"
+                  {...register("password")}
                   placeholder="Digite a sua palavra-passe"
-                  className="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-green-900 focus:border-green-900 transition"
+                  className={`w-full pl-12 pr-4 py-3 rounded-xl bg-white focus:outline-none focus:ring-2 transition
+                  ${
+                    errors.password
+                      ? "border border-red-500 focus:ring-red-500 focus:border-red-500"
+                      : "border border-slate-300 focus:ring-green-900 focus:border-green-900"
+                  }`}
                 />
               </div>
+
+              {errors.password && (
+                <p className="mt-1 text-sm text-red-500 font-medium">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             {/* Opções */}
@@ -79,10 +142,13 @@ export default function Login() {
             {/* Botão */}
             <button
               type="submit"
+              disabled={isSubmitting}
               className="
                 w-full
                 bg-amber-300
                 hover:bg-amber-200
+                disabled:opacity-70
+                disabled:cursor-not-allowed
                 text-green-950
                 font-bold
                 py-3
@@ -92,7 +158,7 @@ export default function Login() {
                 cursor-pointer
               "
             >
-              Entrar no Sistema
+               {isSubmitting ? "A entrar..." : "Entrar no Sistema"}
             </button>
           </form>
         </div>
