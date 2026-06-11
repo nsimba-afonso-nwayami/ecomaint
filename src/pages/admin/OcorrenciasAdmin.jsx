@@ -3,7 +3,7 @@ import AdminLayout from "./components/AdminLayout";
 import Modal from "./components/Modal";
 import ModalSmall from "./components/ModalSmall";
 
-export default function UtilizadoresAdmin() {
+export default function OcorrenciasAdmin() {
   const [openNovoUtilizador, setOpenNovoUtilizador] = useState(false);
   const [openExcluirUtilizador, setOpenExcluirUtilizador] = useState(false);
   const [modoEdicao, setModoEdicao] = useState(false);
