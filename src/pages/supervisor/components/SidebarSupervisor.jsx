@@ -16,15 +16,12 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
     {
       title: "Operações",
       items: [
-        { label: "Equipamentos", icon: "fa-gears", path: "/dashboard/admin/equipamentos" },
-        { label: "Manutenções", icon: "fa-screwdriver-wrench", path: "/dashboard/admin/manutencoes" },
         { label: "Ocorrências", icon: "fa-triangle-exclamation", path: "/dashboard/admin/ocorrencias" },
       ],
     },
     {
       title: "Gestão",
       items: [
-        { label: "Stock", icon: "fa-boxes-stacked", path: "/dashboard/admin/stock" },
         { label: "Relatórios", icon: "fa-file-lines", path: "/dashboard/admin/relatorios" },
         { label: "Indicadores", icon: "fa-chart-line", path: "/dashboard/admin/indicadores" },
       ],
@@ -32,7 +29,6 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
     {
       title: "Sistema",
       items: [
-        { label: "Utilizadores", icon: "fa-users", path: "/dashboard/admin/utilizadores" },
         { label: "Configurações", icon: "fa-gear", path: "/dashboard/admin/configuracoes" },
       ],
     },
