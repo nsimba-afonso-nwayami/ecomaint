@@ -25,6 +25,15 @@ import ConfiguracoesAdmin from "../pages/admin/ConfiguracoesAdmin";
 import NotificacoesAdmin from "../pages/admin/NotificacoesAdmin";
 import NotFoundAdmin from "../pages/admin/NotFoundAdmin";
 
+//Dashboard Supervisor
+import DashboardSupervisor from "../pages/supervisor/DashboardSupervisor";
+import OcorrenciasSupervisor from "../pages/supervisor/OcorrenciasSupervisor";
+import RelatoriosSupervisor from "../pages/supervisor/RelatoriosSupervisor";
+import IndicadoresSupervisor from "../pages/supervisor/IndicadoresSupervisor";
+import ConfiguracoesSupervisor from "../pages/supervisor/ConfiguracoesSupervisor";
+import NotificacoesSupervisor from "../pages/supervisor/NotificacoesSupervisor";
+import NotFoundSupervisor from "../pages/supervisor/NotFoundSupervisor";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -40,19 +49,30 @@ export default function AppRoutes() {
       {/* Página não encontrada */}
       <Route path="*" element={<NotFound />} />
 
-      {/* dashboard Admin*/}
+      {/* dashboard Admin */}
       <Route path="/dashboard/admin/">
-          <Route path="" element={<DashboardAdmin />} />
-          <Route path="equipamentos" element={<EquipamentosAdmin />} />
-          <Route path="manutencoes" element={<ManutencaoAdmin />} />
-          <Route path="ocorrencias" element={<OcorrenciasAdmin />} />
-          <Route path="stock" element={<StockAdmin />} />
-          <Route path="relatorios" element={<RelatoriosAdmin />} />
-          <Route path="indicadores" element={<IndicadoresAdmin />} />
-          <Route path="utilizadores" element={<UtilizadoresAdmin />} />
-          <Route path="configuracoes" element={<ConfiguracoesAdmin />} />
-          <Route path="notificacoes" element={<NotificacoesAdmin />} />
-          <Route path="*" element={<NotFoundAdmin />} />
+        <Route path="" element={<DashboardAdmin />} />
+        <Route path="equipamentos" element={<EquipamentosAdmin />} />
+        <Route path="manutencoes" element={<ManutencaoAdmin />} />
+        <Route path="ocorrencias" element={<OcorrenciasAdmin />} />
+        <Route path="stock" element={<StockAdmin />} />
+        <Route path="relatorios" element={<RelatoriosAdmin />} />
+        <Route path="indicadores" element={<IndicadoresAdmin />} />
+        <Route path="utilizadores" element={<UtilizadoresAdmin />} />
+        <Route path="configuracoes" element={<ConfiguracoesAdmin />} />
+        <Route path="notificacoes" element={<NotificacoesAdmin />} />
+        <Route path="*" element={<NotFoundAdmin />} />
+      </Route>
+
+      {/* dashboard Supervisor */}
+      <Route path="/dashboard/supervisor/">
+        <Route path="" element={<DashboardSupervisor />} />
+        <Route path="ocorrencias" element={<OcorrenciasSupervisor />} />
+        <Route path="relatorios" element={<RelatoriosSupervisor />} />
+        <Route path="indicadores" element={<IndicadoresSupervisor />} />
+        <Route path="configuracoes" element={<ConfiguracoesSupervisor />} />
+        <Route path="notificacoes" element={<NotificacoesSupervisor />} />
+        <Route path="*" element={<NotFoundSupervisor />} />
       </Route>
     </Routes>
   );
