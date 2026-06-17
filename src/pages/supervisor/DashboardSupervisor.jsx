@@ -35,7 +35,7 @@ export default function DashboardSupervisor() {
 
   return (
     <>
-      <title>Dashboard | EcoMaint</title>
+      <title>Supervisor | EcoMaint</title>
 
       <SupervisorLayout title="Início">
         <section className="space-y-8 animate-fade-in">
