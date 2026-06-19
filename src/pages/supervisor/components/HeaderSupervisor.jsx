@@ -77,7 +77,7 @@ export default function HeaderSupervisor({ sidebarOpen, setSidebarOpen, title })
         <div className="flex items-center gap-3 pl-1">
           <div className="text-right hidden lg:block">
             <p className="text-xs font-extrabold text-slate-100 leading-none tracking-wide">
-              Administrador
+              Supervisor
             </p>
             <p className="text-[9px] text-slate-100 uppercase font-black tracking-[0.15em] mt-1 bg-green-950/40 py-0.5 px-2 rounded">
               EcoMaint
