@@ -1,13 +1,12 @@
 import { useState } from "react";
 import SupervisorLayout from "./components/SupervisorLayout";
-import Modal from "./components/Modal";
 import ModalSmall from "./components/ModalSmall";
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell 
 } from "recharts";
 
-// Dados fictícios alinhados aos relatórios solicitados
+// Dados alinhados aos relatórios industriais solicitados
 const dadosFalhas = [
   { name: "Ar Condicionado", falhas: 4 },
   { name: "Gerador 01", falhas: 7 },
@@ -23,7 +22,7 @@ const dadosCustos = [
 ];
 
 const dadosManutencao = [
-  { name: "Preventiva", value: 65, color: "#22c55e" }, // green-500 padrão do EcoMaint
+  { name: "Preventiva", value: 65, color: "#22c55e" }, // green-500
   { name: "Corretiva", value: 35, color: "#f59e0b" },  // amber-500
 ];
 
@@ -62,7 +61,7 @@ export default function RelatoriosSupervisor() {
             </div>
           </div>
 
-          {/* BARRA DE FILTROS (Relatório de Equipamentos) */}
+          {/* BARRA DE FILTROS */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white p-4 rounded-xl border border-slate-100 shadow-xs">
             {/* Filtro Período */}
             <div className="relative">
@@ -116,7 +115,7 @@ export default function RelatoriosSupervisor() {
           {/* GRÁFICOS PRINCIPAIS: FALHAS E MANUTENÇÃO */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {/* Relatório de Falhas (Por Equipamento / Departamento) */}
+            {/* Relatório de Falhas */}
             <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
               <div>
                 <h3 className="font-black text-green-900 text-sm leading-tight flex items-center gap-2 mb-4">
@@ -138,7 +137,7 @@ export default function RelatoriosSupervisor() {
               </div>
             </div>
 
-            {/* Relatório de Manutenção (Preventiva vs Corretiva) */}
+            {/* Relatório de Manutenção */}
             <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
               <div>
                 <h3 className="font-black text-green-900 text-sm leading-tight flex items-center gap-2 mb-4">
@@ -175,7 +174,7 @@ export default function RelatoriosSupervisor() {
 
           </div>
 
-          {/* RELATÓRIO DE CUSTOS (Peças, Mão de Obra e Total) */}
+          {/* RELATÓRIO DE CUSTOS ACUMULADOS */}
           <div className="bg-white border border-slate-100 rounded-2xl p-5 shadow-xs">
             <h3 className="font-black text-green-900 text-sm leading-tight flex items-center gap-2 mb-4">
               <span className="w-1 h-3 bg-green-700 rounded-full inline-block" />
@@ -197,7 +196,7 @@ export default function RelatoriosSupervisor() {
             </div>
           </div>
 
-          {/* PAINEL DE EXPORTAÇÃO (PDF, Excel, CSV) */}
+          {/* PAINEL DE EXPORTAÇÃO */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-white p-6 rounded-2xl border border-slate-100 shadow-xs">
             <div>
               <h3 className="font-black text-green-900 text-base leading-tight flex items-center gap-2">
@@ -237,30 +236,30 @@ export default function RelatoriosSupervisor() {
         </section>
       </SupervisorLayout>
 
-      {/* MODAL SMALL PARA REALIZAR FEEDBACK DE EXPORTAÇÃO */}
-      {isExportModalOpen && (
-        <ModalSmall onClose={() => setIsExportModalOpen(false)}>
-          <div className="p-1 space-y-4 text-center">
-            <div className="w-12 h-12 bg-green-50 text-green-700 rounded-full flex items-center justify-center mx-auto text-lg">
-              <i className="fa-solid fa-circle-notch animate-spin"></i>
-            </div>
-            <div className="space-y-1">
-              <h3 className="text-md font-black text-green-900">A Gerar Documentação</h3>
-              <p className="text-slate-600 text-xs leading-relaxed">
-                O arquivo estruturado em formato <span className="font-black text-green-700">{exportType}</span> está a ser compilado com os dados e métricas atuais. O download inicia de forma automática.
-              </p>
-            </div>
-            <div className="pt-2">
-              <button
-                onClick={() => setIsExportModalOpen(false)}
-                className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs transition cursor-pointer"
-              >
-                Fechar Janela
-              </button>
-            </div>
+      {/* MODAL SMALL AJUSTADO COM ASSINATURA CORRETA */}
+      <ModalSmall
+        isOpen={isExportModalOpen}
+        onClose={() => setIsExportModalOpen(false)}
+        title="A Gerar Documentação"
+        icon="fa-solid fa-circle-notch"
+      >
+        <div className="p-1 space-y-4 text-center">
+          <div className="w-12 h-12 bg-green-50 text-green-700 rounded-full flex items-center justify-center mx-auto text-lg">
+            <i className="fa-solid fa-spinner animate-spin"></i>
           </div>
-        </ModalSmall>
-      )}
+          <p className="text-slate-600 text-xs leading-relaxed">
+            O arquivo estruturado em formato <span className="font-black text-green-700">{exportType}</span> está a ser compilado com os dados e métricas atuais. O download iniciará de forma automática.
+          </p>
+          <div className="pt-2">
+            <button
+              onClick={() => setIsExportModalOpen(false)}
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl text-xs transition cursor-pointer"
+            >
+              Fechar Janela
+            </button>
+          </div>
+        </div>
+      </ModalSmall>
     </>
   );
 }

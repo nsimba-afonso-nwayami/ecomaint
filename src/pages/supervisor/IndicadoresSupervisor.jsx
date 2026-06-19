@@ -1,21 +1,19 @@
 import { useState } from "react";
 import SupervisorLayout from "./components/SupervisorLayout";
-import Modal from "./components/Modal";
-import ModalSmall from "./components/ModalSmall";
 
 export default function IndicadoresSupervisor() {
   // Estados para Filtros Avançados se necessário no futuro
   const [periodo, setPeriodo] = useState("mes");
   const [equipamento, setEquipamento] = useState("");
 
-  // Dados reais consolidados dos KPIs de Manutenção
+  // Dados reais consolidados dos KPIs de Manutenção com renderização matemática
   const kpisPrincipais = [
     {
       id: "MTBF",
       titulo: "MTBF",
       subtitulo: "Tempo Médio Entre Falhas",
       valor: "148 Horas",
-      formula: "Tempo Total de Operação / Número de Falhas",
+      formula: "$$\\text{MTBF} = \\frac{\\text{Tempo Total de Operação}}{\\text{Número de Falhas}}$$",
       detalhe: "Indica o tempo médio que o ativo funciona sem interrupções.",
       corBadge: "bg-green-50 text-green-700 border-green-100",
       icon: "fa-solid fa-hourglass-half",
@@ -25,7 +23,7 @@ export default function IndicadoresSupervisor() {
       titulo: "MTTR",
       subtitulo: "Tempo Médio para Reparação",
       valor: "2.4 Horas",
-      formula: "Tempo Total de Reparação / Número de Reparações",
+      formula: "$$\\text{MTTR} = \\frac{\\text{Tempo Total de Reparação}}{\\text{Número de Reparações}}$$",
       detalhe: "Mede a eficiência e rapidez da equipa técnica na resolução de avarias.",
       corBadge: "bg-amber-50 text-amber-700 border-amber-100",
       icon: "fa-solid fa-screwdriver-wrench",
@@ -35,7 +33,7 @@ export default function IndicadoresSupervisor() {
       titulo: "Disponibilidade",
       subtitulo: "Disponibilidade Operacional",
       valor: "98.4%",
-      formula: "[MTBF / (MTBF + MTTR)] × 100",
+      formula: "$$\\text{D} = \\left( \\frac{\\text{MTBF}}{\\text{MTBF} + \\text{MTTR}} \\right) \\times 100\\%$$",
       detalhe: "Percentagem de tempo útil em que o ativo esteve apto para produzir.",
       corBadge: "bg-blue-50 text-blue-700 border-blue-100",
       icon: "fa-solid fa-chart-line",
@@ -117,12 +115,12 @@ export default function IndicadoresSupervisor() {
                     {kpi.valor}
                   </div>
 
-                  {/* Bloco de Fórmula Técnica */}
+                  {/* Bloco de Fórmula Técnica Re-estruturado */}
                   <div className="bg-slate-50/80 border border-slate-100 p-3 rounded-xl space-y-1 text-left">
-                    <span className="text-[9px] font-black uppercase text-slate-400 tracking-wide block">Fórmula de Cálculo</span>
-                    <code className="text-xs font-black text-slate-700 block bg-white/60 px-2 py-1 rounded border border-slate-100 overflow-x-auto whitespace-nowrap">
+                    <span className="text-[9px] font-black uppercase text-slate-400 tracking-wide block">Equação de Engenharia</span>
+                    <div className="text-xs font-medium text-slate-800 bg-white/85 px-1 py-2 rounded border border-slate-100 overflow-x-auto">
                       {kpi.formula}
-                    </code>
+                    </div>
                   </div>
                 </div>
 
@@ -170,9 +168,8 @@ export default function IndicadoresSupervisor() {
 
           {/* PAINEL INFORMATIVO PARA AUDITORIA */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-6 bg-green-950 p-6 rounded-2xl shadow-xs relative overflow-hidden">
-            {/* Elemento estético de fundo */}
             <div className="absolute right-0 bottom-0 opacity-5 text-9xl text-white font-black select-none pointer-events-none transform translate-x-10 translate-y-10">
-              KPI
+              SLA
             </div>
             
             <div className="relative z-10">
