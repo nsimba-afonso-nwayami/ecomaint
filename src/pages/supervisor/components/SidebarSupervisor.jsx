@@ -16,6 +16,8 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
     {
       title: "Operações",
       items: [
+        { label: "Equipamentos", icon: "fa-gears", path: "/dashboard/supervisor/equipamentos" },
+        { label: "Manutenções", icon: "fa-screwdriver-wrench", path: "/dashboard/supervisor/manutencoes" },
         { label: "Ocorrências", icon: "fa-triangle-exclamation", path: "/dashboard/supervisor/ocorrencias" },
       ],
     },
