@@ -68,7 +68,7 @@ export default function NotFoundSupervisor() {
             </button>
 
             <button
-              onClick={() => navigate("/dashboard/admin/")}
+              onClick={() => navigate("/dashboard/supervisor/")}
               className="bg-amber-300 hover:bg-amber-200 text-green-950 font-black text-xs py-3.5 px-6 rounded-xl transition cursor-pointer flex items-center justify-center gap-2 active:scale-95 shadow-md shadow-amber-500/5"
             >
               <i className="fa-solid fa-house text-[10px]"></i>
