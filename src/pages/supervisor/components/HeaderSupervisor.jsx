@@ -63,7 +63,7 @@ export default function HeaderSupervisor({ sidebarOpen, setSidebarOpen, title })
       <div className="flex items-center gap-3 sm:gap-4">
         {/* Notificações */}
         <Link
-          to="/dashboard/admin/notificacoes"
+          to="/dashboard/supervisor/notificacoes"
           className={actionBtnStyle}
         >
           <i className="fa-solid fa-bell text-base"></i>
@@ -86,7 +86,7 @@ export default function HeaderSupervisor({ sidebarOpen, setSidebarOpen, title })
 
           {/* Avatar Premium usando Bege/Dourado e transição suave para Bege Claro */}
           <Link
-            to="/dashboard/admin/configuracoes"
+            to="/dashboard/supervisor/configuracoes"
             className="
               w-10 h-10
               cursor-pointer
