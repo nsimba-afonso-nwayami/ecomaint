@@ -27,6 +27,8 @@ import NotFoundAdmin from "../pages/admin/NotFoundAdmin";
 
 //Dashboard Supervisor
 import DashboardSupervisor from "../pages/supervisor/DashboardSupervisor";
+import EquipamentoSupervisor from "../pages/supervisor/EquipamentoSupervisor";
+import ManutencaoSupervisor from "../pages/supervisor/ManutencaoSupervisor";
 import OcorrenciasSupervisor from "../pages/supervisor/OcorrenciasSupervisor";
 import RelatoriosSupervisor from "../pages/supervisor/RelatoriosSupervisor";
 import IndicadoresSupervisor from "../pages/supervisor/IndicadoresSupervisor";
@@ -67,6 +69,8 @@ export default function AppRoutes() {
       {/* dashboard Supervisor */}
       <Route path="/dashboard/supervisor/">
         <Route path="" element={<DashboardSupervisor />} />
+        <Route path="equipamentos" element={<EquipamentoSupervisor />} />
+        <Route path="manutencoes" element={<ManutencaoSupervisor />} />
         <Route path="ocorrencias" element={<OcorrenciasSupervisor />} />
         <Route path="relatorios" element={<RelatoriosSupervisor />} />
         <Route path="indicadores" element={<IndicadoresSupervisor />} />
@@ -74,6 +78,8 @@ export default function AppRoutes() {
         <Route path="notificacoes" element={<NotificacoesSupervisor />} />
         <Route path="*" element={<NotFoundSupervisor />} />
       </Route>
+
+      {/* dashboard Técnico */}
     </Routes>
   );
 }
