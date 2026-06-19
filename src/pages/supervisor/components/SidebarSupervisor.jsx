@@ -10,26 +10,26 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
     {
       title: "Core",
       items: [
-        { label: "Dashboard", icon: "fa-gauge-high", path: "/dashboard/admin" },
+        { label: "Dashboard", icon: "fa-gauge-high", path: "/dashboard/supervisor" },
       ],
     },
     {
       title: "Operações",
       items: [
-        { label: "Ocorrências", icon: "fa-triangle-exclamation", path: "/dashboard/admin/ocorrencias" },
+        { label: "Ocorrências", icon: "fa-triangle-exclamation", path: "/dashboard/supervisor/ocorrencias" },
       ],
     },
     {
       title: "Gestão",
       items: [
-        { label: "Relatórios", icon: "fa-file-lines", path: "/dashboard/admin/relatorios" },
-        { label: "Indicadores", icon: "fa-chart-line", path: "/dashboard/admin/indicadores" },
+        { label: "Relatórios", icon: "fa-file-lines", path: "/dashboard/supervisor/relatorios" },
+        { label: "Indicadores", icon: "fa-chart-line", path: "/dashboard/supervisor/indicadores" },
       ],
     },
     {
       title: "Sistema",
       items: [
-        { label: "Configurações", icon: "fa-gear", path: "/dashboard/admin/configuracoes" },
+        { label: "Configurações", icon: "fa-gear", path: "/dashboard/supervisor/configuracoes" },
       ],
     },
   ];
