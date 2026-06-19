@@ -36,6 +36,14 @@ import ConfiguracoesSupervisor from "../pages/supervisor/ConfiguracoesSupervisor
 import NotificacoesSupervisor from "../pages/supervisor/NotificacoesSupervisor";
 import NotFoundSupervisor from "../pages/supervisor/NotFoundSupervisor";
 
+//Dashboard Técnico
+import DashboardTecnico from "../pages/tecnico/DashboardTecnico";
+import EquipamentoTecnico from "../pages/tecnico/EquipamentoTecnico";
+import OcorrenciasTecnico from "../pages/tecnico/OcorrenciasTecnico";
+import ConfiguracoesTecnico from "../pages/tecnico/ConfiguracoesTecnico";
+import NotificacoesTecnico from "../pages/tecnico/NotificacoesTecnico";
+import NotFoundTecnico from "../pages/tecnico/NotFoundTecnico";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -80,6 +88,14 @@ export default function AppRoutes() {
       </Route>
 
       {/* dashboard Técnico */}
+      <Route path="/dashboard/tecnico/">
+        <Route path="" element={<DashboardTecnico />} />
+        <Route path="equipamentos" element={<EquipamentoTecnico />} />
+        <Route path="ocorrencias" element={<OcorrenciasTecnico />} />
+        <Route path="configuracoes" element={<ConfiguracoesTecnico />} />
+        <Route path="notificacoes" element={<NotificacoesTecnico />} />
+        <Route path="*" element={<NotFoundTecnico />} />
+      </Route>
     </Routes>
   );
 }
