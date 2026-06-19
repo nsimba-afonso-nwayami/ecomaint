@@ -39,6 +39,7 @@ import NotFoundSupervisor from "../pages/supervisor/NotFoundSupervisor";
 //Dashboard Técnico
 import DashboardTecnico from "../pages/tecnico/DashboardTecnico";
 import EquipamentoTecnico from "../pages/tecnico/EquipamentoTecnico";
+import ManutencaoTecnico from "../pages/tecnico/ManutencaoTecnico";
 import OcorrenciasTecnico from "../pages/tecnico/OcorrenciasTecnico";
 import ConfiguracoesTecnico from "../pages/tecnico/ConfiguracoesTecnico";
 import NotificacoesTecnico from "../pages/tecnico/NotificacoesTecnico";
@@ -91,6 +92,7 @@ export default function AppRoutes() {
       <Route path="/dashboard/tecnico/">
         <Route path="" element={<DashboardTecnico />} />
         <Route path="equipamentos" element={<EquipamentoTecnico />} />
+        <Route path="manutencoes" element={<ManutencaoTecnico />} />
         <Route path="ocorrencias" element={<OcorrenciasTecnico />} />
         <Route path="configuracoes" element={<ConfiguracoesTecnico />} />
         <Route path="notificacoes" element={<NotificacoesTecnico />} />
