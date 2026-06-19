@@ -2,82 +2,68 @@ import { useState } from "react";
 import TecnicoLayout from "./components/TecnicoLayout";
 
 export default function NotificacoesTecnico() {
-  // Dados baseados estritamente nos tipos de alertas solicitados
+  // Dados focados estritamente na rotina e nas ordens de trabalho do Técnico
   const [notificacoes, setNotificacoes] = useState([
     {
-      id: "NOT-001",
-      tipo: "Manutenção atrasada",
-      mensagem: "A caldeira industrial do Bloco B falhou o prazo de inspeção programada.",
-      data: "Hoje, 09:15",
+      id: "ALR-001",
+      tipo: "Ordem de Serviço Urgente",
+      mensagem: "Foi-lhe atribuída a OS-8842 para reparação imediata do Painel de Distribuição Geral no Bloco C.",
+      data: "Hoje, 11:15",
       lida: false,
       severidade: "critico",
     },
     {
-      id: "NOT-002",
-      tipo: "Stock crítico",
-      mensagem: "O stock de Rolamentos Blindados atingiu o limite mínimo de segurança (2 unidades restantes).",
+      id: "ALR-002",
+      tipo: "Manutenção Atrasada",
+      mensagem: "O Compressor Industrial B3 está com o plano de revisão preventiva fora do prazo.",
       data: "Hoje, 08:30",
       lida: false,
       severidade: "critico",
     },
     {
-      id: "NOT-003",
-      tipo: "Nova ocorrência",
-      mensagem: "O técnico António Mateus reportou uma anomalia na bomba hidráulica principal.",
+      id: "ALR-003",
+      tipo: "Preventiva Agendada",
+      mensagem: "Revisão sistemática do Gerador Elétrico Principal mapeada para a sua escala nas próximas 24 horas.",
       data: "Ontem, 16:45",
       lida: true,
-      severidade: "aviso",
+      severidade: "info",
     },
     {
-      id: "NOT-004",
-      tipo: "Nova ordem de serviço",
-      mensagem: "A OS-8842 foi gerada automaticamente e atribuída à equipa de eletromecânica.",
+      id: "ALR-004",
+      tipo: "Anomalia Registada",
+      mensagem: "O seu reporte de avaria no sistema sobre a Bomba Hidráulica foi validado pela Supervisão.",
       data: "Ontem, 14:20",
       lida: true,
-      severidade: "info",
-    },
-    {
-      id: "NOT-005",
-      tipo: "Manutenção próxima",
-      mensagem: "Revisão preventiva do Gerador de Emergência agendada para daqui a 48 horas.",
-      data: "08 Jun, 11:00",
-      lida: true,
-      severidade: "info",
+      severidade: "sucesso",
     },
   ]);
 
-  // Injeta as cores, ícones e ações automáticas contextuais de forma limpa
+  // Configuração visual focada na ação do operador em campo
   const getAlertaConfig = (tipo) => {
     switch (tipo) {
-      case "Manutenção atrasada":
+      case "Ordem de Serviço Urgente":
         return { 
           bg: "bg-red-50 text-red-700 border-red-100", 
-          icone: "fa-solid fa-triangle-exclamation",
-          acaoTexto: "Tratar Atraso"
+          icone: "fa-solid fa-file-signature",
+          acaoTexto: "Executar OS"
         };
-      case "Stock crítico":
+      case "Manutenção Atrasada":
         return { 
           bg: "bg-amber-50 text-amber-700 border-amber-100", 
-          icone: "fa-solid fa-boxes-stacked",
-          acaoTexto: "Requisitar Stock"
+          icone: "fa-solid fa-triangle-exclamation",
+          acaoTexto: "Abrir Diagnóstico"
         };
-      case "Nova ocorrência":
-        return { 
-          bg: "bg-orange-50 text-orange-700 border-orange-100", 
-          icone: "fa-solid fa-circle-exclamation",
-          acaoTexto: "Avaliar Falha" 
-        };
-      case "Nova ordem de serviço":
-        return { 
-          bg: "bg-blue-50 text-blue-700 border-blue-100", 
-          icone: "fa-solid fa-file-signature",
-          acaoTexto: "Ver OS" 
-        };
-      case "Manutenção próxima":
+      case "Preventiva Agendada":
         return { 
           bg: "bg-green-50 text-green-700 border-green-100", 
           icone: "fa-solid fa-calendar-check",
-          acaoTexto: "Escalar Equipa" 
+          acaoTexto: "Iniciar Rotina" 
+        };
+      case "Anomalia Registada":
+        return { 
+          bg: "bg-blue-50 text-blue-700 border-blue-100", 
+          icone: "fa-solid fa-clipboard-check",
+          acaoTexto: "Ver Histórico" 
         };
       default:
         return { 
@@ -110,10 +96,10 @@ export default function NotificacoesTecnico() {
             <div>
               <h1 className="text-xl font-black text-green-900 flex items-center gap-2">
                 <span className="w-1 h-5 bg-green-700 rounded-full inline-block" />
-                Centro de Alertas e Notificações
+                O Meu Painel de Alertas
               </h1>
               <p className="text-slate-400 text-xs mt-1 font-medium">
-                Monitore os incidentes em tempo real, rotinas de manutenção preventiva e o estado dos ativos críticos do ecossistema.
+                Consulte ordens de serviço atribuídas, alterações de escala e avisos urgentes sobre os ativos sob a sua responsabilidade.
               </p>
             </div>
 
@@ -123,7 +109,7 @@ export default function NotificacoesTecnico() {
                 className="bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 font-bold text-xs py-2.5 px-4 rounded-xl transition-all duration-200 cursor-pointer flex items-center gap-2 self-start sm:self-auto"
               >
                 <i className="fa-solid fa-check-double text-[10px]"></i>
-                Marcar todas como lidas
+                Limpar Notificações
               </button>
             )}
           </div>
@@ -132,11 +118,11 @@ export default function NotificacoesTecnico() {
           <div className="flex items-center justify-between bg-white p-4 rounded-xl border border-slate-100 shadow-xs text-xs font-bold text-slate-400">
             <div className="flex items-center gap-2">
               <span className="bg-slate-50 text-slate-600 px-2.5 py-1 rounded-md tracking-wide border border-slate-100">
-                Histórico Recente
+                Atualizações Operacionais
               </span>
             </div>
             <div>
-              Pendentes: <span className="text-green-900 ml-1 font-black">{totalNaoLidas} Não lidas</span>
+              Alertas Pendentes: <span className="text-green-900 ml-1 font-black">{totalNaoLidas} por ler</span>
             </div>
           </div>
 
@@ -189,12 +175,12 @@ export default function NotificacoesTecnico() {
                       </span>
                     </div>
 
-                    {/* Botão de Ação Rápida */}
+                    {/* Botão de Ação Rápida de Campo */}
                     <button 
                       onClick={(e) => {
-                        e.stopPropagation(); // Evita marcar como lida duas vezes
+                        e.stopPropagation(); // Evita re-trigger de leitura
                         marcarComoLida(item.id);
-                        // Aqui entraria a navegação ou abertura do recurso associado
+                        // Integrar roteamento da app para a OS correspondente futuramente
                       }}
                       className="text-[11px] font-black bg-slate-100 hover:bg-green-800 hover:text-white text-slate-700 px-3 py-1.5 rounded-lg transition duration-200 cursor-pointer whitespace-nowrap"
                     >

@@ -1,19 +1,17 @@
 import { useState } from "react";
 import TecnicoLayout from "./components/TecnicoLayout";
 import Modal from "./components/Modal";
-import ModalSmall from "./components/ModalSmall"; // Importado o ModalSmall
 
 export default function EquipamentosTecnico() {
-  const [openNovoEquipamento, setOpenNovoEquipamento] = useState(false);
-  const [openExcluirEquipamento, setOpenExcluirEquipamento] = useState(false);
-  const [modoEdicao, setModoEdicao] = useState(false);
+  const [openFichaTecnica, setOpenFichaTecnica] = useState(false);
+  const [openNovaOcorrencia, setOpenNovaOcorrencia] = useState(false);
   const [equipamentoSelecionado, setEquipamentoSelecionado] = useState(null);
   
   const [filtroPesquisa, setFiltroPesquisa] = useState("");
   const [filtroEstado, setFiltroEstado] = useState("");
   const [filtroDepartamento, setFiltroDepartamento] = useState("");
 
-  // Dados fictícios
+  // Dados dos ativos da infraestrutura
   const equipamentos = [
     {
       codigo: "EQ-001",
@@ -22,6 +20,11 @@ export default function EquipamentosTecnico() {
       departamento: "Produção",
       estado: "Operacional",
       ultimaManutencao: "08/06/2026",
+      fabricante: "Siemens",
+      modelo: "SGE-500 kVA",
+      numeroSerie: "SN-987654321",
+      localizacao: "Pavilhão A - Zona Exterior Sul",
+      vidaUtil: "15.000 horas",
     },
     {
       codigo: "EQ-002",
@@ -30,6 +33,11 @@ export default function EquipamentosTecnico() {
       departamento: "Operações",
       estado: "Manutenção",
       ultimaManutencao: "24/05/2026",
+      fabricante: "Atlas Copco",
+      modelo: "GA 37 VSD",
+      numeroSerie: "SN-112233445",
+      localizacao: "Pavilhão B - Setor de Ar Comprimido",
+      vidaUtil: "10 anos",
     },
     {
       codigo: "EQ-003",
@@ -38,27 +46,24 @@ export default function EquipamentosTecnico() {
       departamento: "Infraestrutura",
       estado: "Avaria",
       ultimaManutencao: "12/04/2026",
+      fabricante: "Schneider Electric",
+      modelo: "PrismaSeT P",
+      numeroSerie: "SN-556677889",
+      localizacao: "Sala Técnica Central - Bloco C",
+      vidaUtil: "20 anos",
     },
   ];
 
-  // Função para abrir o cadastro limpo
-  const handleNovoEquipamento = () => {
-    setEquipamentoSelecionado(null);
-    setModoEdicao(false);
-    setOpenNovoEquipamento(true);
+  // Abrir detalhes em modo leitura
+  const handleVerFichaTecnica = (eq) => {
+    setEquipamentoSelecionado(eq);
+    setOpenFichaTecnica(true);
   };
 
-  // Função para abrir a edição com os dados preenchidos
-  const handleEditarEquipamento = (eq) => {
+  // Abrir reporte de avaria focado no ativo selecionado
+  const handleReportarAvariaAtivo = (eq) => {
     setEquipamentoSelecionado(eq);
-    setModoEdicao(true);
-    setOpenNovoEquipamento(true);
-  };
-
-  // Função para abrir o aviso de exclusão
-  const handleExcluirEquipamento = (eq) => {
-    setEquipamentoSelecionado(eq);
-    setOpenExcluirEquipamento(true);
+    setOpenNovaOcorrencia(true);
   };
 
   return (
@@ -69,24 +74,14 @@ export default function EquipamentosTecnico() {
         <section className="space-y-6 animate-fade-in">
           
           {/* CABEÇALHO DA SECÇÃO */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-white p-6 rounded-2xl border border-slate-100 shadow-xs">
-            <div>
-              <h1 className="text-xl font-black text-green-900 flex items-center gap-2">
-                <span className="w-1 h-5 bg-green-700 rounded-full inline-block" />
-                Gestão de Equipamentos
-              </h1>
-              <p className="text-slate-400 text-xs mt-1 font-medium">
-                Consulte, monitorize e registe os ativos físicos da empresa através de módulos dinâmicos.
-              </p>
-            </div>
-
-            <button
-              onClick={handleNovoEquipamento}
-              className="bg-amber-300 hover:bg-amber-200 active:scale-95 text-green-950 font-black text-sm py-3 px-5 rounded-xl transition-all duration-200 cursor-pointer flex items-center gap-2 shadow-md shadow-amber-500/5 self-start sm:self-auto"
-            >
-              <i className="fa-solid fa-plus text-xs"></i>
-              Cadastrar Equipamento
-            </button>
+          <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-xs">
+            <h1 className="text-xl font-black text-green-900 flex items-center gap-2">
+              <span className="w-1 h-5 bg-green-700 rounded-full inline-block" />
+              Consulta de Equipamentos e Ativos
+            </h1>
+            <p className="text-slate-400 text-xs mt-1 font-medium">
+              Pesquise fichas técnicas, verifique estados operacionais e localize componentes para intervenção em tempo real.
+            </p>
           </div>
 
           {/* BARRA DE FILTROS */}
@@ -128,17 +123,16 @@ export default function EquipamentosTecnico() {
                 <option value="Produção">Produção</option>
                 <option value="Operações">Operações</option>
                 <option value="Infraestrutura">Infraestrutura</option>
-                <option value="Logística">Logística</option>
               </select>
               <i className="fa-solid fa-chevron-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-[10px] pointer-events-none"></i>
             </div>
 
             <div className="flex items-center justify-end pr-2 text-xs font-bold text-slate-400">
-              Exibindo: <span className="text-green-900 ml-1 font-black">{equipamentos.length} Equipamentos</span>
+              Disponíveis: <span className="text-green-900 ml-1 font-black">{equipamentos.length} Ativos</span>
             </div>
           </div>
 
-          {/* LISTAGEM EM FORMATO DE CARDS EMPILHADOS */}
+          {/* LISTAGEM DE ATIVOS */}
           <div className="grid grid-cols-1 gap-4">
             {equipamentos.map((eq) => (
               <div
@@ -200,23 +194,26 @@ export default function EquipamentosTecnico() {
                   </div>
                 </div>
 
-                {/* BOTÕES DE AÇÃO COM ONCLICK CONFIGURADO */}
+                {/* AÇÕES ADAPTADAS AO TÉCNICO */}
                 <div className="border-t sm:border-t-0 border-slate-50 pt-3 sm:pt-0 flex items-center justify-between sm:justify-end shrink-0 sm:pl-4">
-                  <span className="text-[10px] text-slate-400 font-bold sm:hidden">Ações disponíveis:</span>
-                  <div className="flex gap-1">
+                  <span className="text-[10px] text-slate-400 font-bold sm:hidden">Opções:</span>
+                  <div className="flex gap-2">
                     <button 
-                      onClick={() => handleEditarEquipamento(eq)}
-                      className="p-2 hover:bg-slate-50 text-slate-400 hover:text-green-900 rounded-lg transition border border-transparent hover:border-slate-100 cursor-pointer" 
-                      title="Editar Equipamento"
+                      onClick={() => handleReportarAvariaAtivo(eq)}
+                      className="px-3 py-2 bg-slate-50 hover:bg-red-50 text-slate-500 hover:text-red-600 rounded-xl transition border border-slate-100 hover:border-red-100 flex items-center gap-1.5 text-xs font-bold cursor-pointer"
+                      title="Reportar Anomalia neste Ativo"
                     >
-                      <i className="fa-solid fa-pen-to-square text-xs"></i>
+                      <i className="fa-solid fa-triangle-exclamation text-[11px]"></i>
+                      <span>Reportar</span>
                     </button>
+                    
                     <button 
-                      onClick={() => handleExcluirEquipamento(eq)}
-                      className="p-2 hover:bg-red-50 text-slate-400 hover:text-red-600 rounded-lg transition border border-transparent hover:border-red-100 cursor-pointer" 
-                      title="Eliminar Ativo"
+                      onClick={() => handleVerFichaTecnica(eq)}
+                      className="px-3 py-2 bg-green-800 hover:bg-green-700 text-white rounded-xl transition flex items-center gap-1.5 text-xs font-bold cursor-pointer shadow-xs" 
+                      title="Ver Detalhes do Equipamento"
                     >
-                      <i className="fa-solid fa-trash text-xs"></i>
+                      <i className="fa-solid fa-file-lines text-[11px]"></i>
+                      <span>Ficha Técnica</span>
                     </button>
                   </div>
                 </div>
@@ -226,207 +223,148 @@ export default function EquipamentosTecnico() {
           </div>
         </section>
 
-        {/* MODAL DE CADASTRO / EDIÇÃO */}
+        {/* MODAL: FICHA TÉCNICA (MODO LEITURA / CONSULTA) */}
         <Modal
-          isOpen={openNovoEquipamento}
-          onClose={() => setOpenNovoEquipamento(false)}
-          title={modoEdicao ? "Editar Equipamento" : "Cadastrar Novo Equipamento"}
-          icon={modoEdicao ? "fa-solid fa-pen-to-square" : "fa-solid fa-gears"}
+          isOpen={openFichaTecnica}
+          onClose={() => setOpenFichaTecnica(false)}
+          title={`Ficha Técnica • ${equipamentoSelecionado?.codigo}`}
+          icon="fa-solid fa-file-lines"
+        >
+          <div className="bg-white p-2 space-y-6">
+            <div>
+              <span className="text-[10px] bg-green-50 text-green-800 px-2.5 py-1 rounded font-black uppercase tracking-wider">
+                {equipamentoSelecionado?.categoria}
+              </span>
+              <h2 className="text-xl font-black text-green-900 mt-2 leading-tight">
+                {equipamentoSelecionado?.nome}
+              </h2>
+            </div>
+
+            <hr className="border-slate-100" />
+
+            {/* Grid de Informações Estruturadas */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-sm">
+              <div className="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
+                <span className="block text-[10px] uppercase font-black tracking-wider text-slate-400">Fabricante</span>
+                <span className="font-bold text-slate-700 block mt-1">{equipamentoSelecionado?.fabricante || "N/A"}</span>
+              </div>
+
+              <div className="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
+                <span className="block text-[10px] uppercase font-black tracking-wider text-slate-400">Modelo Especificado</span>
+                <span className="font-bold text-slate-700 block mt-1">{equipamentoSelecionado?.modelo || "N/A"}</span>
+              </div>
+
+              <div className="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
+                <span className="block text-[10px] uppercase font-black tracking-wider text-slate-400">Número de Série</span>
+                <span className="font-mono font-bold text-slate-700 block mt-1 tracking-wide">{equipamentoSelecionado?.numeroSerie || "N/A"}</span>
+              </div>
+
+              <div className="bg-slate-50/70 p-3.5 rounded-xl border border-slate-100">
+                <span className="block text-[10px] uppercase font-black tracking-wider text-slate-400">Ciclo de Vida / Uso Estimado</span>
+                <span className="font-bold text-slate-700 block mt-1">{equipamentoSelecionado?.vidaUtil || "N/A"}</span>
+              </div>
+
+              <div className="sm:col-span-2 bg-slate-50/70 p-3.5 rounded-xl border border-slate-100 flex items-start gap-2.5">
+                <i className="fa-solid fa-map-location-dot text-slate-400 text-base mt-0.5" />
+                <div>
+                  <span className="block text-[10px] uppercase font-black tracking-wider text-slate-400">Localização Exata</span>
+                  <span className="font-bold text-green-950 block mt-0.5">{equipamentoSelecionado?.localizacao || "Não parametrizada"}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-100 flex justify-end">
+              <button
+                onClick={() => setOpenFichaTecnica(false)}
+                className="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-2.5 px-5 rounded-xl text-xs transition cursor-pointer"
+              >
+                Fechar Consulta
+              </button>
+            </div>
+          </div>
+        </Modal>
+
+        {/* MODAL: REPORTAR OCORRÊNCIA (PRÉ-VINCULADO AO ATIVO) */}
+        <Modal
+          isOpen={openNovaOcorrencia}
+          onClose={() => setOpenNovaOcorrencia(false)}
+          title="Reportar Ocorrência / Anomalia"
+          icon="fa-solid fa-triangle-exclamation"
         >
           <div className="bg-white p-1">
             <form onSubmit={(e) => e.preventDefault()} className="space-y-6 p-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                
-                {/* Código Interno */}
-                <div>
-                  <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Código Interno
-                  </label>
-                  <div className="relative">
-                    <i className="fa-solid fa-barcode absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      defaultValue={equipamentoSelecionado?.codigo || ""}
-                      disabled={modoEdicao} // Opcional: bloquear código na edição
-                      placeholder="Ex: EQ-204"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm disabled:opacity-60"
-                    />
+              
+              <div className="space-y-4">
+                {/* Visualização estática do Ativo Vinculado */}
+                <div className="p-3.5 bg-red-50/50 border border-red-100/60 rounded-xl flex items-center justify-between">
+                  <div>
+                    <span className="text-[9px] uppercase font-black tracking-widest text-red-700 block">Ativo Afetado</span>
+                    <span className="font-black text-sm text-green-950">{equipamentoSelecionado?.nome}</span>
                   </div>
+                  <span className="text-xs font-mono font-bold bg-white px-2 py-1 rounded border border-red-200 text-slate-600">
+                    {equipamentoSelecionado?.codigo}
+                  </span>
                 </div>
 
-                {/* Nome */}
+                {/* Tipo de Sintoma Encontrado */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Nome do Equipamento
+                    Tipo de Falha Detetada
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-tag absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      defaultValue={equipamentoSelecionado?.nome || ""}
-                      placeholder="Ex: Compressor de Ar"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* Modelo */}
-                <div>
-                  <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Modelo
-                  </label>
-                  <div className="relative">
-                    <i className="fa-solid fa-cubes absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Ex: Premium v2"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* Fabricante */}
-                <div>
-                  <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Fabricante
-                  </label>
-                  <div className="relative">
-                    <i className="fa-solid fa-industry absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Ex: Siemens, Bosch"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* Número de Série */}
-                <div>
-                  <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Número de Série
-                  </label>
-                  <div className="relative">
-                    <i className="fa-solid fa-fingerprint absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Ex: SN-987654321"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* Departamento */}
-                <div>
-                  <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Departamento Alocado
-                  </label>
-                  <div className="relative">
-                    <i className="fa-solid fa-building absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <select 
-                      defaultValue={equipamentoSelecionado?.departamento || "Produção"}
-                      className="w-full pl-11 pr-8 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm appearance-none cursor-pointer"
-                    >
-                      <option>Produção</option>
-                      <option>Operações</option>
-                      <option>Infraestrutura</option>
-                      <option>Logística</option>
+                    <i className="fa-solid fa-list absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <select className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm appearance-none cursor-pointer">
+                      <option>Mecânica (Ruído / Vibração / Desgaste)</option>
+                      <option>Elétrica (Curto / Aquecimento / Sobrecarga)</option>
+                      <option>Fuga / Perda de Fluido Hidráulico</option>
+                      <option>Instrumentação / Falha de Sensor</option>
                     </select>
                   </div>
                 </div>
 
-                {/* Localização */}
-                <div className="md:col-span-2">
-                  <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Localização Exata
-                  </label>
-                  <div className="relative">
-                    <i className="fa-solid fa-map-location-dot absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Ex: Pavilhão B - Setor de Montagem Nordeste"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
-                  </div>
-                </div>
-
-                {/* Data de Aquisição */}
+                {/* Impacto no Estado do Equipamento */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Data de Aquisição
+                    Estado Atual do Ativo no Local
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-calendar-check absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="date"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm cursor-pointer"
-                    />
+                    <i className="fa-solid fa-ban absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <select className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm appearance-none cursor-pointer">
+                      <option>A funcionar com restrições / Degradado</option>
+                      <option>Totalmente Parado / Fora de Serviço</option>
+                      <option>Risco de quebra ou acidente iminente</option>
+                    </select>
                   </div>
                 </div>
 
-                {/* Vida Útil */}
+                {/* Descrição Sintomática */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Vida Útil Estimada
+                    Observações e Sintomas Coletados
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-hourglass-half absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Ex: 5 anos, 10.000 horas"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
+                    <i className="fa-solid fa-clipboard-list absolute left-4 top-4 text-slate-400 text-sm"></i>
+                    <textarea
+                      rows="3"
+                      placeholder="Descreve detalhadamente o comportamento anormal observado em campo para ajudar a equipa de engenharia a triar..."
+                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm resize-none"
                     />
                   </div>
                 </div>
-
               </div>
 
+              {/* Ação de Submissão */}
               <div className="pt-2">
                 <button
                   type="submit"
                   className="w-full bg-amber-300 hover:bg-amber-200 active:scale-98 text-green-950 font-black py-3.5 rounded-xl transition-all shadow-md shadow-amber-500/5 cursor-pointer text-sm"
                 >
-                  {modoEdicao ? "Guardar Alterações" : "Registar Ativo no Sistema"}
+                  Submeter Alerta de Avaria
                 </button>
               </div>
             </form>
           </div>
         </Modal>
-
-        {/* MODAL SMALL PARA CONFIRMAÇÃO DE EXCLUSÃO */}
-        <ModalSmall
-          isOpen={openExcluirEquipamento}
-          onClose={() => setOpenExcluirEquipamento(false)}
-          title="Eliminar Equipamento"
-          icon="fa-solid fa-trash-can"
-        >
-          <div className="p-1 space-y-4 text-center sm:text-left">
-            <p className="text-slate-600 text-sm leading-relaxed">
-              Tem a certeza de que deseja eliminar o equipamento{" "}
-              <span className="font-black text-green-900">
-                {equipamentoSelecionado?.nome} ({equipamentoSelecionado?.codigo})
-              </span>
-              ? Esta ação não pode ser desfeita e removerá o ativo permanentemente.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              <button
-                onClick={() => setOpenExcluirEquipamento(false)}
-                className="w-full sm:w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 px-4 rounded-xl text-xs transition cursor-pointer"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={() => {
-                  // Lógica de exclusão aqui
-                  setOpenExcluirEquipamento(false);
-                }}
-                className="w-full sm:w-1/2 bg-red-600 hover:bg-red-700 text-white font-black py-3 px-4 rounded-xl text-xs transition shadow-md shadow-red-600/10 cursor-pointer"
-              >
-                Sim, Eliminar
-              </button>
-            </div>
-          </div>
-        </ModalSmall>
 
       </TecnicoLayout>
     </>
