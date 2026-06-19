@@ -6,10 +6,10 @@ export default function ConfiguracoesSupervisor() {
 
   // Dados fictícios do administrador logado para preenchimento inicial
   const adminDados = {
-    nome: "Nsimba Afonso",
-    email: "nsimba.afonso@ecomaint.com",
+    nome: "João Neves",
+    email: "joao.neves@ecomaint.com",
     telefone: "+244 923 000 000",
-    cargo: "Administrador Geral",
+    cargo: "Supervisor",
     departamento: "Engenharia & Infraestrutura",
   };
 
@@ -17,7 +17,7 @@ export default function ConfiguracoesSupervisor() {
     <>
       <title>Configurações | EcoMaint</title>
 
-      <AdminLayout title="Configurações">
+      <SupervisorLayout title="Configurações">
         <section className="space-y-6 animate-fade-in">
           
           {/* CABEÇALHO DA SECÇÃO */}
@@ -242,7 +242,7 @@ export default function ConfiguracoesSupervisor() {
 
           </div>
         </section>
-      </AdminLayout>
+      </SupervisorLayout>
     </>
   );
 }
