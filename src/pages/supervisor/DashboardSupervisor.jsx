@@ -6,30 +6,31 @@ import Modal from "./components/Modal";
 export default function DashboardSupervisor() {
   const [openNovaManutencao, setOpenNovaManutencao] = useState(false);
 
+  // Métricas focadas em Operação e Gestão de Equipas (Foco do Supervisor)
   const stats = [
     {
-      title: "Equipamentos",
-      value: "248",
-      icon: "fa-gears",
+      title: "Ordens em Curso",
+      value: "12",
+      icon: "fa-person-digging",
       color: "bg-green-50 text-green-700",
     },
     {
-      title: "Manutenções Pendentes",
-      value: "16",
-      icon: "fa-screwdriver-wrench",
-      color: "bg-amber-50 text-amber-600",
-    },
-    {
-      title: "Ocorrências Abertas",
-      value: "8",
-      icon: "fa-triangle-exclamation",
+      title: "Manutenções Atrasadas",
+      value: "4",
+      icon: "fa-clock",
       color: "bg-red-50 text-red-600",
     },
     {
-      title: "Itens em Stock",
-      value: "1.254",
-      icon: "fa-boxes-stacked",
+      title: "Técnicos Ativos",
+      value: "14/18",
+      icon: "fa-users-gears",
       color: "bg-blue-50 text-blue-600",
+    },
+    {
+      title: "Aprovações Pendentes",
+      value: "3",
+      icon: "fa-file-signature",
+      color: "bg-amber-50 text-amber-600",
     },
   ];
 
@@ -45,62 +46,28 @@ export default function DashboardSupervisor() {
             <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
             <div className="relative z-10">
               <h1 className="text-2xl md:text-3xl font-black tracking-tight">
-                Bem-vindo ao EcoMaint
+                Painel de Supervisão
               </h1>
               <p className="text-green-100/80 text-sm mt-1.5 font-medium">
-                Visão geral e controlo em tempo real das operações de manutenção.
+                Gestão direta de equipas, distribuição de ordens e controlo de execução técnica.
               </p>
             </div>
 
             <button
               onClick={() => setOpenNovaManutencao(true)}
-              className="
-                bg-amber-300
-                hover:bg-amber-200
-                active:scale-95
-                text-green-950
-                font-black
-                text-sm
-                py-3.5
-                px-6
-                rounded-xl
-                transition-all
-                duration-200
-                cursor-pointer
-                flex
-                items-center
-                gap-2.5
-                shadow-lg
-                shadow-amber-500/10
-                self-start
-                sm:self-auto
-              "
+              className="bg-amber-300 hover:bg-amber-200 active:scale-95 text-green-950 font-black text-sm py-3.5 px-6 rounded-xl transition-all duration-200 cursor-pointer flex items-center gap-2.5 shadow-lg shadow-amber-500/10 self-start sm:self-auto"
             >
               <i className="fa-solid fa-plus text-xs"></i>
-              Nova Manutenção
+              Atribuir Ordem (ODT)
             </button>
           </div>
 
-          {/* ESTATÍSTICAS EM CARD PREMIUM */}
+          {/* CARDS DE ESTATÍSTICAS RE-ADAPTADOS */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
             {stats.map((item) => (
               <div
                 key={item.title}
-                className="
-                  bg-white
-                  border border-slate-100
-                  rounded-2xl
-                  p-6
-                  shadow-sm
-                  hover:shadow-md
-                  hover:-translate-y-1
-                  transition-all
-                  duration-300
-                  flex
-                  items-center
-                  justify-between
-                  group
-                "
+                className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex items-center justify-between group"
               >
                 <div className="space-y-2">
                   <p className="text-xs text-slate-400 uppercase font-bold tracking-wider">
@@ -118,53 +85,56 @@ export default function DashboardSupervisor() {
             ))}
           </div>
 
-          {/* INDICADORES & RESUMO */}
+          {/* CONTROLOS DE EQUIPA & ESTADO DA ESCALA */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            {/* Indicadores Operacionais */}
+            {/* Estado de Alocação de Técnicos */}
             <div className="xl:col-span-2 bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="font-black text-green-900 text-base flex items-center gap-2">
                   <span className="w-1 h-4 bg-green-700 rounded-full inline-block" />
-                  Indicadores Operacionais
+                  Alocação de Técnicos em Tempo Real
                 </h2>
                 <span className="p-2 bg-slate-50 text-slate-400 rounded-lg text-sm">
-                  <i className="fa-solid fa-chart-line text-green-700"></i>
+                  <i className="fa-solid fa-users text-green-700"></i>
                 </span>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
-                  <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Disponibilidade</p>
-                  <h3 className="text-2xl font-black text-green-700 mt-2">97%</h3>
+                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4">
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Equipa Mecânica</p>
+                  <h3 className="text-2xl font-black text-green-700 mt-2">6 Ativos</h3>
+                  <p className="text-[11px] text-slate-400 mt-1">Nenhum disponível</p>
                 </div>
 
-                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
-                  <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">MTTR (Reparação)</p>
-                  <h3 className="text-2xl font-black text-amber-600 mt-2">3.2h</h3>
+                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4">
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Equipa Elétrica</p>
+                  <h3 className="text-2xl font-black text-green-700 mt-2">5 Ativos</h3>
+                  <p className="text-[11px] text-amber-600 mt-1">2 Disponíveis no piquete</p>
                 </div>
 
-                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4 text-center sm:text-left">
-                  <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Preventivas</p>
-                  <h3 className="text-2xl font-black text-blue-600 mt-2">84%</h3>
+                <div className="bg-linear-to-b from-slate-50 to-slate-100/50 border border-slate-100 rounded-xl p-4">
+                  <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Ar Condicionado / AVAC</p>
+                  <h3 className="text-2xl font-black text-slate-400 mt-2">3 Ativos</h3>
+                  <p className="text-[11px] text-slate-400 mt-1">2 de folga</p>
                 </div>
               </div>
             </div>
 
-            {/* Resumo Geral */}
+            {/* Resumo Operacional do Dia */}
             <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="font-black text-green-900 text-base flex items-center gap-2">
                   <span className="w-1 h-4 bg-green-700 rounded-full inline-block" />
-                  Resumo Geral
+                  Resumo das ODTs (Hoje)
                 </h2>
               </div>
 
               <div className="space-y-3.5">
                 {[
-                  { label: "Equipamentos ativos", val: "248", color: "text-green-700" },
-                  { label: "Equipamentos inativos", val: "12", color: "text-red-500 font-extrabold" },
-                  { label: "Técnicos Alocados", val: "18", color: "text-slate-700" },
-                  { label: "Ordens Abertas", val: "7", color: "text-amber-500 font-extrabold" },
+                  { label: "Ordens Planeadas", val: "18", color: "text-slate-700" },
+                  { label: "Executadas com sucesso", val: "9", color: "text-green-700" },
+                  { label: "Paradas por falta de peça", val: "2", color: "text-red-500 font-extrabold" },
+                  { label: "Pedidos urgentes triados", val: "5", color: "text-amber-500 font-extrabold" },
                 ].map((row, i) => (
                   <div key={i} className="flex justify-between items-center py-2 border-b border-slate-50 last:border-0 text-sm">
                     <span className="text-slate-500 font-medium">{row.label}</span>
@@ -175,56 +145,55 @@ export default function DashboardSupervisor() {
             </div>
           </div>
 
-          {/* PRÓXIMAS MANUTENÇÕES + TIMELINE RECENTE */}
+          {/* MONITORIZAÇÃO DIRECTA */}
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-            {/* Próximas Manutenções */}
+            {/* Próximas Intervenções Críticas */}
             <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
               <h2 className="font-black text-green-900 text-base mb-6 flex items-center gap-2">
                 <span className="w-1 h-4 bg-green-700 rounded-full inline-block" />
-                Próximas Manutenções Planeadas
+                Intervenções Críticas Sob Minha Alçada
               </h2>
 
               <div className="space-y-2">
                 {[
-                  { name: "Gerador Principal", type: "Preventiva" },
-                  { name: "Compressor Industrial", type: "Calibração" },
-                  { name: "Painel Elétrico Geral", type: "Inspeção" },
+                  { name: "Subestação PT-2", desc: "Verificação dos níveis de isolamento", tech: "Téc. Mateus Francisco" },
+                  { name: "Chiller Central Bloco B", desc: "Substituição do pressostato de alta", tech: "Téc. Carlos Silva" },
+                  { name: "Bomba de Água Residual", desc: "Manutenção corretiva urgente", tech: "Equipa B (Mecânica)" },
                 ].map((item, index) => (
                   <div
                     key={index}
                     className="flex justify-between items-center bg-slate-50 hover:bg-slate-100/70 p-3.5 rounded-xl transition-colors text-sm"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-amber-400" />
+                      <div className="w-2 h-2 rounded-full bg-red-500" />
                       <div>
                         <p className="font-bold text-slate-700">{item.name}</p>
-                        <p className="text-[11px] text-slate-400 font-medium">{item.type}</p>
+                        <p className="text-[11px] text-slate-400 font-medium">{item.desc} • <span className="text-green-800 font-semibold">{item.tech}</span></p>
                       </div>
                     </div>
-                    <span className="text-xs bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-black">
-                      Amanhã
+                    <span className="text-xs bg-red-50 text-red-700 px-3 py-1 rounded-full font-black">
+                      Alta Prioridade
                     </span>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Atividades Recentes com Timeline Real */}
+            {/* Atividades Recentes do Turno */}
             <div className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
               <h2 className="font-black text-green-900 text-base mb-6 flex items-center gap-2">
                 <span className="w-1 h-4 bg-green-700 rounded-full inline-block" />
-                Histórico de Atividades
+                Registo de Atividades do Turno
               </h2>
 
               <div className="relative pl-4 border-l-2 border-slate-100 space-y-5 ml-2">
                 {[
-                  { text: "Nova ocorrência registada no Compressor A.", time: "Há 10 min", icon: "fa-circle-exclamation text-red-500 bg-red-50" },
-                  { text: "Manutenção concluída no Elevador Hidráulico.", time: "Há 1 hora", icon: "fa-circle-check text-green-600 bg-green-50" },
-                  { text: "Novo equipamento adicionado ao sistema.", time: "Há 3 horas", icon: "fa-circle-plus text-blue-600 bg-blue-50" },
-                  { text: "Stock atualizado: Filtros de óleo recebidos.", time: "Ontem", icon: "fa-boxes-stacked text-slate-500 bg-slate-100" },
+                  { text: "Téc. Carlos Silva iniciou a ODT #482 (Gerador 02).", time: "Há 5 min" },
+                  { text: "ODT #479 dada como concluída por Téc. Mateus Francisco.", time: "Há 42 min" },
+                  { text: "Pedido de validação de fecho de manutenção recebido do Elevador 01.", time: "Há 1 hora" },
+                  { text: "Relatório de avaria submetido pelo operador da Linha de Produção 3.", time: "Há 2 horas" },
                 ].map((item, index) => (
                   <div key={index} className="relative flex items-start justify-between gap-4 text-sm group">
-                    {/* Indicador customizado na linha */}
                     <div className="absolute -left-6.25 top-0.5 bg-white p-0.5 rounded-full">
                       <div className="w-3 h-3 rounded-full bg-green-700 border-2 border-white shadow-sm group-hover:scale-120 transition-transform" />
                     </div>
@@ -240,86 +209,85 @@ export default function DashboardSupervisor() {
           </div>
         </section>
 
-        {/* MODAL CONFIGURADO EM GRID (PREMIUM) */}
+        {/* MODAL AJUSTADO PARA EMISSÃO/ATRIBUIÇÃO DE ORDENS PELO SUPERVISOR */}
         <Modal
           isOpen={openNovaManutencao}
           onClose={() => setOpenNovaManutencao(false)}
-          title="Nova Manutenção"
-          icon="fa-solid fa-screwdriver-wrench"
+          title="Atribuir Ordem de Trabalho (ODT)"
+          icon="fa-solid fa-file-signature"
         >
           <div className="bg-white p-1">
             <form onSubmit={(e) => e.preventDefault()} className="space-y-6 p-2">
               
-              {/* Grid Responsiva de Inputs para evitar aspeto esticado */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                 
-                {/* Equipamento */}
+                {/* Seleção do Equipamento */}
                 <div className="md:col-span-2">
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Equipamento Alvo
+                    Equipamento / Sistema Afetado
                   </label>
                   <div className="relative">
                     <i className="fa-solid fa-gears absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <input
                       type="text"
-                      placeholder="Selecione o equipamento do inventário"
+                      placeholder="Ex: Compressor de Ar Comprimido #03"
                       className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
                     />
                   </div>
                 </div>
 
-                {/* Tipo */}
+                {/* Tipo de Manutenção */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Tipo de Intervenção
+                    Tipo de ODT
                   </label>
                   <div className="relative">
                     <i className="fa-solid fa-list absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <select className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm appearance-none cursor-pointer">
-                      <option>Preventiva</option>
-                      <option>Corretiva</option>
-                      <option>Preditiva</option>
+                      <option>Preventiva Planeada</option>
+                      <option>Corretiva Urgente</option>
+                      <option>Calibração / Ensaio</option>
                     </select>
                   </div>
                 </div>
 
-                {/* Periodicidade */}
+                {/* Técnico Atribuído */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Periodicidade
+                    Técnico / Equipa Alocada
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-repeat absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Ex: Mensal, Semestral"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
+                    <i className="fa-solid fa-user-gear absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <select className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm appearance-none cursor-pointer">
+                      <option>Téc. Carlos Silva (Elétrica)</option>
+                      <option>Téc. Mateus Francisco (Mecânica)</option>
+                      <option>Piquete de Turno Geral</option>
+                    </select>
                   </div>
                 </div>
 
-                {/* Responsável */}
+                {/* Nível de Criticidade */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Técnico Responsável
+                    Criticidade / Prioridade
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-user absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                    <input
-                      type="text"
-                      placeholder="Nome do operador"
-                      className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm"
-                    />
+                    <i className="fa-solid fa-triangle-exclamation absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <select className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm appearance-none cursor-pointer">
+                      <option>Baixa - Rotina</option>
+                      <option>Média - Agendada</option>
+                      <option>Alta - Paragem iminente</option>
+                    </select>
                   </div>
                 </div>
 
-                {/* Data Inicial */}
+                {/* Prazo Limite */}
                 <div>
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Agendamento Inicial
+                    Prazo Limite de Execução
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-calendar-days absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                    <i className="fa-solid fa-calendar-check absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                     <input
                       type="date"
                       className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm cursor-pointer"
@@ -327,29 +295,29 @@ export default function DashboardSupervisor() {
                   </div>
                 </div>
 
-                {/* Checklist */}
+                {/* Notas de Orientação Técnica */}
                 <div className="md:col-span-2">
                   <label className="block mb-2 text-xs uppercase font-black tracking-wider text-green-900">
-                    Procedimentos / Checklist de Tarefas
+                    Instruções de Trabalho Específicas
                   </label>
                   <div className="relative">
-                    <i className="fa-solid fa-clipboard-check absolute left-4 top-4 text-slate-400 text-sm"></i>
+                    <i className="fa-solid fa-clipboard-list absolute left-4 top-4 text-slate-400 text-sm"></i>
                     <textarea
                       rows="3"
-                      placeholder="Indique as tarefas passo-a-passo (ex: 1. Verificar óleo, 2. Limpar filtros)..."
+                      placeholder="Descreve os sintomas reportados ou os passos críticos que o técnico precisa de validar no local..."
                       className="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-200 bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-green-800 focus:bg-white transition text-sm resize-none"
                     />
                   </div>
                 </div>
               </div>
 
-              {/* Ações do Formulário */}
+              {/* Botão de Disparo */}
               <div className="pt-2">
                 <button
                   type="submit"
                   className="w-full bg-amber-300 hover:bg-amber-200 active:scale-98 text-green-950 font-black py-3.5 rounded-xl transition-all shadow-md shadow-amber-500/5 cursor-pointer text-sm"
                 >
-                  Confirmar e Criar Ordem
+                  Despachar para o Técnico
                 </button>
               </div>
             </form>
