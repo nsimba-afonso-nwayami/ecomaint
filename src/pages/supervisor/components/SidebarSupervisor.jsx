@@ -73,7 +73,7 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
           {/* LOGO */}
           <div className="mb-8 px-2 pt-2">
             <Link
-              to="/dashboard/admin"
+              to="/dashboard/supervisor"
               className="text-xl font-black tracking-tight flex items-center gap-3"
             >
               <div className="bg-amber-300 text-green-950 p-2 rounded-xl shadow-md shadow-yellow-700/10">
@@ -86,7 +86,7 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
             </Link>
 
             <p className="text-[10px] text-slate-400 mt-4 uppercase font-black tracking-[0.2em]">
-              Painel Administrativo
+              Painel Do Supervisor
             </p>
           </div>
 
