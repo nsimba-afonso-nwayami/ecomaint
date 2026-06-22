@@ -45,6 +45,15 @@ import ConfiguracoesTecnico from "../pages/tecnico/ConfiguracoesTecnico";
 import NotificacoesTecnico from "../pages/tecnico/NotificacoesTecnico";
 import NotFoundTecnico from "../pages/tecnico/NotFoundTecnico";
 
+//Dashboard Gestor
+import DashboardGestor from "../pages/gestor/DashboardGestor";
+import EquipamentoGestor from "../pages/gestor/EquipamentoGestor";
+import RelatoriosGestor from "../pages/gestor/RelatoriosGestor";
+import IndicadoresGestor from "../pages/gestor/IndicadoresGestor";
+import ConfiguracoesGestor from "../pages/gestor/ConfiguracoesGestor";
+import NotificacoesGestor from "../pages/gestor/NotificacoesGestor";
+import NotFoundGestor from "../pages/gestor/NotFoundGestor";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -98,6 +107,18 @@ export default function AppRoutes() {
         <Route path="notificacoes" element={<NotificacoesTecnico />} />
         <Route path="*" element={<NotFoundTecnico />} />
       </Route>
+
+      {/* dashboard Gestor */}
+      <Route path="/dashboard/gestor/">
+        <Route path="" element={<DashboardGestor />} />
+        <Route path="equipamentos" element={<EquipamentoGestor />} />
+        <Route path="relatorios" element={<RelatoriosGestor />} />
+        <Route path="indicadores" element={<IndicadoresGestor />} />
+        <Route path="configuracoes" element={<ConfiguracoesGestor />} />
+        <Route path="notificacoes" element={<NotificacoesGestor />} />
+        <Route path="*" element={<NotFoundGestor />} />
+      </Route>
+      
     </Routes>
   );
 }
