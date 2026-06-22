@@ -12,7 +12,7 @@ export default function NotFoundTecnico() {
       setContagem((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          navigate("/dashboard/admin/");
+          navigate("/dashboard/tecnico/");
           return 0;
         }
         return prev - 1;

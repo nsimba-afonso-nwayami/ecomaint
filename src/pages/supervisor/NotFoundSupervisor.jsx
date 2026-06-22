@@ -12,7 +12,7 @@ export default function NotFoundSupervisor() {
       setContagem((prev) => {
         if (prev <= 1) {
           clearInterval(timer);
-          navigate("/dashboard/admin/");
+          navigate("/dashboard/supervisor/");
           return 0;
         }
         return prev - 1;
