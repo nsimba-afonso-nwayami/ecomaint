@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
+export default function SidebarAdmin({ sidebarOpen, setSidebarOpen }) {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
@@ -10,28 +10,30 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
     {
       title: "Core",
       items: [
-        { label: "Dashboard", icon: "fa-gauge-high", path: "/dashboard/supervisor" },
+        { label: "Dashboard", icon: "fa-gauge-high", path: "/dashboard/" },
       ],
     },
     {
       title: "Operações",
       items: [
-        { label: "Equipamentos", icon: "fa-gears", path: "/dashboard/supervisor/equipamentos" },
-        { label: "Manutenções", icon: "fa-screwdriver-wrench", path: "/dashboard/supervisor/manutencoes" },
-        { label: "Ocorrências", icon: "fa-triangle-exclamation", path: "/dashboard/supervisor/ocorrencias" },
+        { label: "Equipamentos", icon: "fa-gears", path: "/dashboard/equipamentos" },
+        { label: "Manutenções", icon: "fa-screwdriver-wrench", path: "/dashboard/manutencoes" },
+        { label: "Ocorrências", icon: "fa-triangle-exclamation", path: "/dashboard/ocorrencias" },
       ],
     },
     {
       title: "Gestão",
       items: [
-        { label: "Relatórios", icon: "fa-file-lines", path: "/dashboard/supervisor/relatorios" },
-        { label: "Indicadores", icon: "fa-chart-line", path: "/dashboard/supervisor/indicadores" },
+        { label: "Stock", icon: "fa-boxes-stacked", path: "/dashboard/stock" },
+        { label: "Relatórios", icon: "fa-file-lines", path: "/dashboard/relatorios" },
+        { label: "Indicadores", icon: "fa-chart-line", path: "/dashboard/indicadores" },
       ],
     },
     {
       title: "Sistema",
       items: [
-        { label: "Configurações", icon: "fa-gear", path: "/dashboard/supervisor/configuracoes" },
+        { label: "Utilizadores", icon: "fa-users", path: "/dashboard/utilizadores" },
+        { label: "Configurações", icon: "fa-gear", path: "/dashboard/configuracoes" },
       ],
     },
   ];
@@ -73,7 +75,7 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
           {/* LOGO */}
           <div className="mb-8 px-2 pt-2">
             <Link
-              to="/dashboard/supervisor"
+              to="/dashboard/"
               className="text-xl font-black tracking-tight flex items-center gap-3"
             >
               <div className="bg-amber-300 text-green-950 p-2 rounded-xl shadow-md shadow-yellow-700/10">
@@ -86,7 +88,7 @@ export default function SidebarSupervisor({ sidebarOpen, setSidebarOpen }) {
             </Link>
 
             <p className="text-[10px] text-slate-400 mt-4 uppercase font-black tracking-[0.2em]">
-              Painel Do Supervisor
+              Painel Administrativo
             </p>
           </div>
 

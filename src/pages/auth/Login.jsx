@@ -36,7 +36,7 @@ export default function Login() {
         "Bem-vindo ao EcoMaint."
       );
 
-      navigate("/dashboard/admin");
+      navigate("/dashboard/");
     } catch (error) {
       dismissToast(loadingToast);
 
